@@ -16,6 +16,10 @@ public class Day1 {
             row1.add(Integer.parseInt(splitSample[0]));
             row2.add(Integer.parseInt(splitSample[1]));
         }
+        int sum1=0;
+        for (int x=0; x<row1.size(); x++) {
+            
+        }
         System.out.println(findMin(-1, row1));
     }
     public static int findMin(int param, ArrayList<Integer> arr) {
