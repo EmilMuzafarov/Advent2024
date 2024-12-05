@@ -9,12 +9,19 @@ public class Day3 {
     public static void main(String[] args) {
         String searchString = getFileData("src/input");
         ArrayList<String> allMatches = new ArrayList<String>();
-        String regex = "mul\\([1-9]{1-3},[1-9]{1-3}\\)";
+        ArrayList<String> permMatches = new ArrayList<String>();
+        String regex = "mul\\([1-9][0-9]{0,2},[1-9][0-9]{0,2}\\)";
+        String perms="\\(['do\\(\\)']['don't\\(\\)']\\)";
         Matcher m = Pattern.compile(regex).matcher(searchString);
+        Matcher p = Pattern.compile(regex).matcher(perms);
         while (m.find()) {
             allMatches.add(m.group());
         }
+        while (p.find()) {
+            permMatches.add(p.group());
+        }
         System.out.println(allMatches);
+        System.out.println(permMatches);
         int sum=0;
         for (int i=0; i<allMatches.size(); i++) {
             sum+=mul(allMatches.get(i));
