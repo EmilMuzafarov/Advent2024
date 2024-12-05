@@ -1,12 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
+import java.util.Arrays;
 import static java.lang.Integer.parseInt;
 
 public class Day1 {
-    static ArrayList<Integer> row1=new ArrayList<>();
+    static List<Integer> row1=new ArrayList();
     static ArrayList<Integer> row2=new ArrayList<>();
     public static void main(String[] args) {
         ArrayList<String> fileData = getFileData("src/input");
@@ -16,9 +17,12 @@ public class Day1 {
             row1.add(Integer.parseInt(splitSample[0]));
             row2.add(Integer.parseInt(splitSample[1]));
         }
+        ArrayList<Integer> min1 = new ArrayList<>();
+        ArrayList<Integer> min2 = new ArrayList<>();
         int sum1=0;
+        int small1=0;
         for (int x=0; x<row1.size(); x++) {
-            
+            min1.add(findMin(small1,row1.get(x)));
         }
         System.out.println(findMin(-1, row1));
     }
