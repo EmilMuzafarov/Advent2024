@@ -16,27 +16,64 @@ public class Day4 {
                 grid[r][c] = fileData.get(r).substring(c, c+1);
             }
         }
+        int occur=0;
         System.out.println(Arrays.deepToString(grid));
         for (int a=0; a<grid.length; a++) {
-            boolean go=false;
             for (int b = 0; b < grid[0].length; b++) {
                 if (grid[a][b].equals("X") && b<grid[0].length-4 && a<grid.length-4) {
                     int row=a;
                     int col=b;
-                    findDiagonal(grid, "XMAS", row, col);
+                    if (ADiagonal(grid, "XMAS", row, col)) {
+                        occur++;
+                    }
+                    if (BDiagonal(grid, "XMAS", row, col)) {
+                        occur++;
+                    }
+                }
+                if (grid[a][b].equals("S") && b>4 && a<grid.length-4) {
+                    int row=a;
+                    int col=b;
+                    if (ADiagonal(grid, "SMAX", row, col)) {
+                        occur++;
+                    }
+                    if (BDiagonal(grid, "SMAX", row, col)) {
+                        occur++;
+                    }
+                    System.out.println(occur);
                 }
             }
         }
+        System.out.println(occur);
     }
-    public static boolean findDiagonal(String[][] test, String search, int row, int col) {
-        for (int r = row; r < test.length; r++) {
-            for (int c = col; c < test[0].length; c++) {
-                if (!(test[r][c].equals(search.substring(0,1)) || test[r][c].equals(search.substring(search.length()-1,search.length())))) {
-                    return false;
-                } else {
-                    r++;
-                }
+    public static boolean ADiagonal(String[][] test, String search, int row, int col) {
+        int i=0;
+        int match=0;
+        for (int c = col; c < col+4; c++) {
+            if (!(test[row][c].equals(search.substring(i,i+1)))) {
+                return false;
             }
+            match++;
+            if (match==4) {
+                return true;
+            }
+            row++;
+            i++;
+        }
+        return true;
+    }
+    public static boolean BDiagonal(String[][] test, String search, int row, int col) {
+        int i=0;
+        int match=0;
+        for (int c = col; c > col-4; c--) {
+            if (!(test[row][c].equals(search.substring(i,i+1)))) {
+                return false;
+            }
+            match++;
+            if (match==4) {
+                return true;
+            }
+            row++;
+            i++;
         }
         return true;
     }
