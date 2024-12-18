@@ -30,7 +30,7 @@ public class Day4 {
                         occur++;
                     }
                 }
-                if (grid[a][b].equals("S") && b>4 && a<grid.length-4) {
+                if (grid[a][b].equals("S") && b<grid[0].length-4 && a<grid.length-4) {
                     int row=a;
                     int col=b;
                     if (ADiagonal(grid, "SMAX", row, col)) {
@@ -48,35 +48,46 @@ public class Day4 {
     public static boolean ADiagonal(String[][] test, String search, int row, int col) {
         int i=0;
         int match=0;
-        for (int c = col; c < col+4; c++) {
-            if (!(test[row][c].equals(search.substring(i,i+1)))) {
+        int c=col;
+        while (c<col+4 && i<search.length()) {
+            String check=search.substring(i,i+1);
+            if (test[row][c].equals(check)) {
+                match++;
+                i++;
+                c=0;
+                row++;
+                System.out.println(check);
+            } else {
                 return false;
             }
-            match++;
             if (match==4) {
                 return true;
             }
-            row++;
-            i++;
         }
-        return true;
+        return false;
     }
     public static boolean BDiagonal(String[][] test, String search, int row, int col) {
         int i=0;
         int match=0;
-        for (int c = col; c > col-4; c--) {
-            if (!(test[row][c].equals(search.substring(i,i+1)))) {
+        int c=col;
+        while (c>col-4 && i<search.length()) {
+            String check=search.substring(i,i+1);
+            if (test[row][c].equals(check)) {
+                match++;
+                i++;
+                c--;
+                row++;
+                System.out.println(check);
+            } else {
                 return false;
             }
-            match++;
             if (match==4) {
                 return true;
             }
-            row++;
-            i++;
         }
-        return true;
+        return false;
     }
+
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<String>();
         try {
