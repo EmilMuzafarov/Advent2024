@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 public class Day6 {
-    static int tracker=0;
-    static int check1=0;
-    static int check2=0;
     public static void main(String[] args) {
         ArrayList<Integer> numList = new ArrayList<Integer>();
         ArrayList<String> fileData = getFileData("src/input");
@@ -19,6 +16,20 @@ public class Day6 {
             }
         }
         System.out.println(Arrays.deepToString(grid));
+    }
+    public static String findGuard(String[][] test) {
+        String coord="";
+        for (int i=0; i<test.length; i++) {
+            for (int j=0; j<test[0].length; j++) {
+                if (test[i][j].equals("^")) {
+                    coord=i+" "+j;
+                }
+            }
+        }
+        return coord;
+    }
+    public static void move() {
+        
     }
     public static ArrayList<String> getFileData(String fileName) {
         ArrayList<String> fileData = new ArrayList<String>();
