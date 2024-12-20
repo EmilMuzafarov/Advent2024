@@ -11,19 +11,20 @@ public class Day6 {
     static boolean down=false;
     static boolean up=true;
     static boolean left=false;
+    public static String[][] grid;
     public static void main(String[] args) {
         ArrayList<String> fileData = getFileData("src/input");
         int rows = fileData.size();
         int columns = fileData.get(0).length();
-        String[][] grid = new String[rows][columns];
+        grid = new String[rows][columns];
         for (int r = 0; r < grid.length; r++) {
             for (int c = 0; c < grid[0].length; c++) {
                 grid[r][c]=fileData.get(r).substring(c,c+1);
             }
         }
         findGuard(grid);
-        move(grid);
-        System.out.println(grid);
+        move();
+        System.out.println(loc);
     }
     public static void findGuard(String[][] test) {
         for (int i=0; i<test.length; i++) {
@@ -36,42 +37,64 @@ public class Day6 {
             }
         }
     }
-    public static void move(String[][] test) {
+    public static void move() {
         boolean end=false;
         while (!end) {
             eval();
-            if (!test[posY-1][posX].equals("#") && up) {
-                if (posY > 0) {
-                    System.out.println("The guard left");
-                    System.out.println(loc);
-                    end = true;
-                }
-                test[posY][posX] = "X";
-                posY++;
-                test[posY][posX] = "^";
-                loc++;
-            }
-            if (test[posY][posX+1].equals("#") && right) {
-                if (posX < test[0].length) {
-                    System.out.println("The guard left");
-                    System.out.println(loc);
-                    end = true;
-                }
-            }
-            if (test[posY+1][posX].equals("#") && down) {
-                if (posY < test.length) {
-                    System.out.println("The guard left");
-                    System.out.println(loc);
-                    end = true;
-                }
-            }
-            if (test[posY][posX-1].equals("#") && left) {
+            if (!grid[posY-1][posX].equals("#") && up) {
                 if (posY < 0) {
                     System.out.println("The guard left");
                     System.out.println(loc);
                     end = true;
                 }
+                grid[posY][posX] = "X";
+                posY--;
+                grid[posY][posX] = "^";
+                loc++;
             }
+            if (!grid[posY][posX+1].equals("#") && right) {
+                if (posX > grid[0].length) {
+                    System.out.println("The guard left");
+                    grid[posY][posX] = "X";
+                    System.out.println(loc);
+                    end = true;
+                } else {
+                    grid[posY][posX] = "X";
+                    posX++;
+                    grid[posY][posX] = "^";
+                }
+                loc++;
+            }
+            if (!grid[posY+1][posX].equals("#") && down) {
+                if (posY > grid.length) {
+                    System.out.println("The guard left");
+                    grid[posY][posX] = "X";
+                    System.out.println(loc);
+                    end = true;
+                } else {
+                    grid[posY][posX] = "X";
+                    posY++;
+                    grid[posY][posX] = "^";
+                }
+                loc++;
+            }
+            if (!grid[posY][posX-1].equals("#") && left) {
+                if (posX < 0) {
+                    System.out.println("The guard left");
+                    grid[posY][posX] = "X";
+                    System.out.println(loc);
+                    end = true;
+                } else {
+                    grid[posY][posX] = "X";
+                    posX--;
+                    grid[posY][posX] = "^";
+                }
+                loc++;
+            }
+            System.out.println(posX);
+            System.out.println(posY);
+            System.out.println(Arrays.deepToString(grid));
+            System.out.println(loc);
         }
     }
     public static void eval() {
